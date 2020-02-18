@@ -1,0 +1,33 @@
+{
+  "name": "decstreams",
+  "version": "1.0.0",
+  "description": "Multicast event and request stream decorators for decoupled system design",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "ng test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeus-volkov-systems/decstreams.git"
+  },
+  "dependencies": {
+    "@types/uuid": "^3.4.7",
+    "rxjs": "^6.5.4",
+    "tsc": "^1.20150623.0",
+    "uuid": "^3.4.0"
+  },
+  "keywords": [
+    "typescript",
+    "decorators",
+    "decoupled",
+    "request",
+    "events"
+  ],
+  "author": "Zeus Volkov Systems, LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeus-volkov-systems/decstreams/issues"
+  },
+  "homepage": "https://github.com/zeus-volkov-systems/decstreams#readme"
+}
