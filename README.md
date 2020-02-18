@@ -80,6 +80,8 @@ export class GreetingParser {
 
 ## decstream Requests
 
+decstream Requests are essentially opposite direction events. Request publishers specify an ordered list of the namespaces they want responses for, pass each an optional argument, wait for a return value for each, and then process the functional logic in the request publisher body.
+
 #### Request Usage
 
 Add a `@RequestPublisher(["ClassX.functionX", "ClassY.functionY"])` decorator to a function that needs to make requests. Whenever this method is called, it will ship a request for responses from all of the namespaced topics it lists. When it receives all responses, it will process the business logic using an array argument.
