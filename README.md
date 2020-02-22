@@ -100,7 +100,7 @@ export class UserComponent {
     @RequestPublisher(["UserService.getOldUsers", "UserService.getNewUsers"])
     public printUserLists(responses?: any[], args?: any[]){
         console.log("Old users: " + responses[0]);
-        console.log("New users: " + responses[0]);
+        console.log("New users: " + responses[1]);
     }
     
 }
