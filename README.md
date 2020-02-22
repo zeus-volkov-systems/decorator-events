@@ -1,10 +1,10 @@
 # decstreams: typescript event/request decorators for multicast streams
 
-decstreams provides simple event and request decorator pairs for creating asynchronous, decoupled, multicast, event stream systems for Typescript projects.
+decstreams provides simple event and request decorator pairs for creating asynchronous, decoupled, multicast event stream systems
 
 ## Why use decstreams
 
-- you want to built an asynchronous system without using promises and async calls
+- you want to build an asynchronous system in structured javascript without using promises, async calls, or proprietary constructs like lambda functions
 - you want clean separation of responsibility in functions in your code
 - you prefer functional, single-responsiblity system design
 - you prefer message based architectures (a la kafka, sanicio) and would like something like that in typescript
@@ -59,7 +59,7 @@ export class HelloClass {
 
     @EventPublisher()
     private sayHello() {
-      return 'Hello, ${firstName} {this.lastName}!';
+      return 'Hello, ${firstName} ${this.lastName}!';
     }
 
 }
