@@ -1,6 +1,6 @@
 {
   "name": "decstreams",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Multicast event and request stream decorators for decoupled system design",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@types/uuid": "^3.4.7",
+    "decstreams": "^1.0.0",
     "rxjs": "^6.5.4",
     "tsc": "^1.20150623.0",
     "uuid": "^3.4.0"
@@ -22,7 +23,10 @@
     "decorators",
     "decoupled",
     "request",
-    "events"
+    "events",
+    "rxjs",
+    "streaming",
+    "streams"
   ],
   "author": "Zeus Volkov Systems, LLC",
   "license": "MIT",

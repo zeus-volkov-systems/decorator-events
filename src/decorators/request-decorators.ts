@@ -6,7 +6,6 @@ import { ResponseQueue } from '../queues/response-queue';
 
 export function publisher(topic_key_pairs: string[]) {
     let initialized = false;
-    console.log("HELLO FROM THE REQUEST PUBLISHER for topic key pairs:" + topic_key_pairs);
     return (target: any, propertyKey: any, descriptor: any) => {
         const businessFn = descriptor.value;
         descriptor.value = function (response_array: any = buildNullArray(topic_key_pairs), args: any = buildNullArray(topic_key_pairs)) {
@@ -27,7 +26,6 @@ export function publisher(topic_key_pairs: string[]) {
 
 export function consumer() {
     let initialized = false;
-    console.log("HELLO FROM THE REQUEST CONSUMER!");
     return (target: any, propertyKey: any, descriptor: any) => {
         const businessFn = descriptor.value;
         RequestQueue.access().consume()
