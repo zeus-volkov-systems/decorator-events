@@ -2,7 +2,7 @@
 
 decstreams provides simple event and request decorator pairs for creating asynchronous, decoupled, multicast event stream systems
 
-Current version: 1.0.3
+Current Version (npm install decstreams): 1.0.6
 
 ## Why use decstreams
 
@@ -36,20 +36,21 @@ Add an `@EventConsumer(["ClassX.functionX", "ClassY.functionY", ...])` decorator
 
 #### Event Example
 
+Copy/paste this as a new typescript module (index.ts), then compile to js and run using node.
+
 ```typescript
 import { EventPublisher, EventConsumer } from 'decstreams';
-import { LoggingService } from '../../services';
 
 export class GreeterClass {
 
     @EventPublisher()
-    private greetNicely(name:string) {
-        return 'Hi, ${name}!';
+    public greetNicely(name:string) {
+        return 'Hi, ' + name + '!';
     }
 
     @EventPublisher()
-    private greetAggressively(name:string) {
-        return 'Get lost, ${name}!';
+    public greetAggressively(name:string) {
+        return 'Get lost, ' + name + '!';
     }
 
 }
@@ -60,22 +61,41 @@ export class HelloClass {
     private lastName = 'Berkheimer';
 
     @EventPublisher()
-    private sayHello() {
-      return 'Hello, ${firstName} ${this.lastName}!';
+    public sayHello() {
+        return 'Hello, '+ HelloClass.firstName + ' ' + this.lastName +'!';
     }
 
 }
 
 export class GreetingParser {
 
-    private logger: LoggingService;
+    @EventConsumer(["GreeterClass.greetNicely", "GreeterClass.greetAggressively", "HelloClass.sayHello"])
+    private logGreeting(greeting: any) {
+        console.log(greeting);
+    }
 
     @EventConsumer(["GreeterClass.greetNicely", "GreeterClass.greetAggressively", "HelloClass.sayHello"])
-    private logGreeting(greeting:any) {
-      console.log(this.logger.infoMessage() + ': ${greeting}');
+    private reverseGreeting(greeting: any) {
+        console.log('Opposite of: ' + greeting);
     }
 
 }
+
+var hc = new HelloClass();
+var gc = new GreeterClass();
+hc.sayHello();
+gc.greetAggressively("Ryan");
+
+/*
+After compilation of this example via tsc, the output is:
+(base) Faraday:typescript-test rberkheimer$ node dist/index.js
+Hello, Ryan Berkheimer!
+Opposite of: Hello, Ryan Berkheimer!
+Get lost, Ryan!
+Opposite of: Get lost, Ryan!
+
+Note that both functions were multicast due to multiple event consumers.
+*/
 
 ```
 
