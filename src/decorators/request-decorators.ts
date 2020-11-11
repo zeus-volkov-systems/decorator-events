@@ -6,7 +6,7 @@ import { ResponseQueue } from '../queues/response-queue';
 
 export function publisher(topic_key_pairs: string[]) {
     let initialized = false;
-    return (target: any, propertyKey: any, descriptor: any) => {
+    return (target: any, propertyKey: any, descriptor?: any): any => {
         const businessFn = descriptor.value;
         descriptor.value = function (response_array: any = buildNullArray(topic_key_pairs), args: any = buildNullArray(topic_key_pairs)) {
             let request_maps = buildRequestMaps(topic_key_pairs, args);
@@ -26,13 +26,12 @@ export function publisher(topic_key_pairs: string[]) {
 
 export function consumer() {
     let initialized = false;
-    return (target: any, propertyKey: any, descriptor: any) => {
+    return (target: any, propertyKey: any, descriptor?: any): any => {
         const businessFn = descriptor.value;
         RequestQueue.access().consume()
             .pipe(filter((m: Message) => (target.constructor.name == m.getValue().getTopic() && propertyKey == m.getValue().getKey())))
             .subscribe({
                 next: (m) => {
-                    //console.log(this);
                     let message: Message = m.getValue();
                     let response_topic = m.getTopic();
                     let response_key = m.getKey();

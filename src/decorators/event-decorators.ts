@@ -4,7 +4,7 @@ import { EventQueue } from '../queues/event-queue';
 
 
 export function publisher() {
-    return (target: any, propertyKey: any, descriptor: any) => {
+    return (target: any, propertyKey: any, descriptor?: any): any => {
         const businessFn = descriptor.value;
         descriptor.value = function (value: any) {
             var event = new Event(target.constructor.name, propertyKey, businessFn.bind(this)(value), this);
@@ -16,7 +16,7 @@ export function publisher() {
 }
 
 export function consumer(subscriptions: string[]) {
-    return (target: any, _propertyKey: any, descriptor: any) => {
+    return (target: any, _propertyKey: any, descriptor?: any): any => {
         const subscription_list = subscriptions;
         EventQueue.access().consume()
             .pipe(filter((event: Event) => (subscription_list.indexOf(event.getTopic() + "." + event.getKey()) > -1)))

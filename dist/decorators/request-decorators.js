@@ -33,7 +33,6 @@ function consumer() {
             .pipe(operators_1.filter((m) => (target.constructor.name == m.getValue().getTopic() && propertyKey == m.getValue().getKey())))
             .subscribe({
             next: (m) => {
-                //console.log(this);
                 let message = m.getValue();
                 let response_topic = m.getTopic();
                 let response_key = m.getKey();

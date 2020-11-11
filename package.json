@@ -1,6 +1,6 @@
 {
   "name": "decstreams",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Multicast event and request stream decorators for decoupled system design",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",

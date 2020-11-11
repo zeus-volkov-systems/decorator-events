@@ -2,6 +2,8 @@
 
 decstreams provides simple event and request decorator pairs for creating asynchronous, decoupled, multicast event stream systems
 
+Current version: 1.0.3
+
 ## Why use decstreams
 
 - you want to build an asynchronous system in structured javascript without using promises, async calls, or proprietary constructs like lambda functions
