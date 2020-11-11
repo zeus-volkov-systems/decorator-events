@@ -15,7 +15,7 @@ export function publisher() {
     };
 }
 
-export function consumer(subscriptions: String[]) {
+export function consumer(subscriptions: string[]) {
     return (target: any, _propertyKey: any, descriptor: any) => {
         const subscription_list = subscriptions;
         EventQueue.access().consume()

@@ -15,7 +15,7 @@ decstreams provides simple event and request decorator pairs for creating asynch
 
 decstream events use a publish/consumer pair in which the publishing function self publishes, and consumers specify what namespaced functions they consume.
 
-To be an event publisher, a function must return a value. It doesn't matter what the value is or what kind of value it is. 
+To be an event publisher, a function must return a value. It doesn't matter what the value is or what kind of value it is.
 
 To be an event consumer, a function must specify which namespaced function(s) they can consume, and then consume that value as an argument.
 
@@ -26,7 +26,7 @@ Some notes about event publishers and consumers:
 - Consumers never know when they are going to get a message. However, when they do, they are guaranteed to process every message.
 - Consumers can subscribe to multiple publishers. They will trigger on receiving an event from any of their subscribed publishers.
 
-#### Event Usage
+### Event Usage
 
 Add an `@EventPublisher()` decorator to any function that returns something to stream that return value in the event queue.
 
@@ -34,7 +34,7 @@ Add an `@EventConsumer(["ClassX.functionX", "ClassY.functionY", ...])` decorator
 
 #### Event Example
 
-```
+```typescript
 import { EventPublisher, EventConsumer } from 'decstreams';
 import { LoggingService } from '../../services';
 
@@ -44,7 +44,7 @@ export class GreeterClass {
     private greetNicely(name:string) {
         return 'Hi, ${name}!';
     }
-    
+
     @EventPublisher()
     private greetAggressively(name:string) {
         return 'Get lost, ${name}!';
@@ -76,13 +76,14 @@ export class GreetingParser {
 }
 
 ```
+
 **how it works** - In the preceding example, anytime the greetNicely, greetAggressively, or sayHello methods are called, they pass their return values to an event queue. The logGreeting method is subscribed to all of these methods, so whenever the queue has a message with those topics passed, it will trigger. The example demonstrates that any behaviors are supported inside decorators - instance methods, static methods, cross namespaces, etc.
 
 ## decstream Requests
 
 decstream Requests are essentially opposite direction events. Request publishers specify an ordered list of the namespaces they want responses for, pass each an optional argument, wait for a return value for each, and then process the functional logic in the request publisher body.
 
-#### Request Usage
+### Request Usage
 
 Add a `@RequestPublisher(["ClassX.functionX", "ClassY.functionY"])` decorator to a function that needs to make requests. Whenever this method is called, it will ship a request for responses from all of the namespaced topics it lists. When it receives all responses, it will process the business logic using an array argument.
 
@@ -92,7 +93,7 @@ Add a `@RequestConsumer()` decorator to a function that will serve request respo
 
 #### Request Example
 
-```
+```typescript
 import { RequestPublisher, RequestConsumer } from 'decstreams';
 
 export class UserComponent {
@@ -102,7 +103,7 @@ export class UserComponent {
         console.log("Old users: " + responses[0]);
         console.log("New users: " + responses[1]);
     }
-    
+
 }
 
 export class UserService {
@@ -114,7 +115,7 @@ export class UserService {
     private getOldUsers(args:any) {
       return this.oldUsers;
     }
-    
+
     @RequestConsumer()
     private getNewUsers(args:any) {
       return this.newUsers;
@@ -134,6 +135,5 @@ We welcome community improvements and suggestions. Some things we would like to 
 
 - Wildcard event consumer subscriptions (e.g., `@EventConsumer(["GreeterClass.*"])`)
 - Data based conditional event consumers (e.g., `@EventConsumer(["message.hasProperty("x")"]`
-
 
 #### Copyright Zeus Volkov Systems, LLC

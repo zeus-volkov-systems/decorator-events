@@ -3,10 +3,10 @@ import { TimeUtils } from "../utils/datetime-utils";
 
 export class Message {
 
-    private id: string
-    private timestamp: number
-    private topic: string
-    private key: string
+    private id!: string;
+    private timestamp!: number;
+    private topic!: string;
+    private key!: string;
     private value: any
     private context: any
 
